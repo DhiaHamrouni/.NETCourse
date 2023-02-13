@@ -100,7 +100,7 @@ namespace ApplicationCore.Service
         public int ProgrammedFlightNumber(DateTime startDate)
         {
             var query = from flight in Flights
-                        where flight.FlightDate>startDate && flight.FlightDate<startDate.AddDays(7)
+                        where flight.FlightDate>=startDate && flight.FlightDate<=startDate.AddDays(7)
                         select flight;
             return query.Count();
         }
@@ -116,7 +116,48 @@ namespace ApplicationCore.Service
                 Console.WriteLine(item.Destination);
             }
         }
+        public double DurationAverage(string destination)
+        {
+            var query= from flight in Flights
+                    where flight.Destination == destination
+                    select flight.EstimatedDuration;
+            return query.Average();
+        }
+        public IEnumerable<Flight> OrderedDurationFlights()
+        {
+            var query = from flight in Flights
+                        orderby flight.EstimatedDuration descending
+                        select flight;
+            return query;
+        }
+        
+        public IEnumerable<Traveller> SeniorTravellers(Flight flight) {
+            var query = from traveler in flight.Passengers.OfType<Traveller>()
+                        orderby traveler.BirthDate
+                        select traveler;
+            return query.Take(3);
+        }
+        public IEnumerable<IGrouping<string,Flight>> DestinationGroupedFlights()
+        {
+             var query = from flight in Flights
+                         group flight by flight.Destination;
+            foreach (var group in query)
+            {
+                Console.WriteLine("Destination "+group.Key);
+                foreach (var item in group)
+                {
+                    Console.WriteLine("Decollage :"+item.FlightDate);
+                }
+            }
+            return query;
+                        
 
-       
+        }
+
+
+
+
+
+
     }
 }

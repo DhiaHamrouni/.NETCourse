@@ -17,6 +17,7 @@ namespace ConsoleApp4.Domain
 
         public Plane Plane { get; set; }
         public ICollection<Passenger> Passengers { get; set; }
+        public int Key { get; internal set; }
 
         public override string ToString()
         {

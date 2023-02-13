@@ -15,6 +15,8 @@ namespace ApplicationCore.Interface
         void ShowFlightDetails(Plane plane);
         int ProgrammedFlightNumber(DateTime startDate);
         public IEnumerable<DateTime> GetFlightdates(string destination);
-
+        public IEnumerable<Flight> OrderedDurationFlights();
+        public IEnumerable<Traveller> SeniorTravellers(Flight flight);
+        public IEnumerable<IGrouping<string, Flight>> DestinationGroupedFlights();
     }
 }
