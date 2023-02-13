@@ -99,15 +99,21 @@ namespace ApplicationCore.Service
 
         public int ProgrammedFlightNumber(DateTime startDate)
         {
-            throw new NotImplementedException();
+            var query = from flight in Flights
+                        where flight.FlightDate>startDate && flight.FlightDate<startDate.AddDays(7)
+                        select flight;
+            return query.Count();
         }
 
         public void ShowFlightDetails(Plane plane)
         {
-            foreach (var item in plane.Flights)
+            var query= from flight in Flights
+                       where flight.Plane==plane
+                       select flight;
+             foreach(var item in query)
             {
-                Console.WriteLine(item.Destination); 
                 Console.WriteLine(item.FlightDate);
+                Console.WriteLine(item.Destination);
             }
         }
 

@@ -9,13 +9,13 @@ namespace ApplicationCore.Domain
 {
     public static class TestData
     {
-    static Plane plane1 = new Plane()
+    public static Plane plane1 = new Plane()
     {
         Capacity=150,
         PlaneType=PlaneType.Boing,
         ManufactureDate=new DateTime(2015,02,03)
     };
-        static Plane plane2 = new Plane()
+        public static Plane plane2 = new Plane()
         {
             Capacity = 250,
             PlaneType = PlaneType.Airbus,
